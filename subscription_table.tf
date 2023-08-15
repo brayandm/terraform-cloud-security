@@ -40,8 +40,8 @@ resource "aws_dynamodb_table" "subscription_table" {
     Classified  = "Yes"
     PII         = "Yes"
     Service     = "Subscription Service"
-	Backup      = "Daily"
-	Owner 		= "Github"
-	Compliance  = "GDPR"
+    Backup      = "Daily"
+    Owner 		  = "Github"
+    Compliance  = "GDPR"
   }
 }
