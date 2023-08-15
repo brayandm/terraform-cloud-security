@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "repository_management" {
     Service     = "Repository Service"
     Backup      = "Weekly"
     Criticality = "Medium"
-    Owner 		  = "Github"
+    Owner       = "Github"
     Compliance  = "GDPR"
   }
 }
