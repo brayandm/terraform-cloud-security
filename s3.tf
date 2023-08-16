@@ -1,6 +1,10 @@
 resource "aws_s3_bucket" "repository_management" {
   bucket = "cloud-sec-github-repository-bucket"
 
+  object_lock_configuration {
+    object_lock_enabled = "Enabled"
+  }
+
   tags = {
     Name        = "Repository Management Bucket"
     Environment = "Production"
@@ -37,7 +41,7 @@ resource "aws_s3_bucket_versioning" "versioning-user-data" {
   }
 }
 
-resource "aws_s3_bucket_object_lock_configuration" "user-data-lock" {
+/*resource "aws_s3_bucket_object_lock_configuration" "user-data-lock" {
   bucket = aws_s3_bucket.repository_management.id
 
   rule {
@@ -46,7 +50,7 @@ resource "aws_s3_bucket_object_lock_configuration" "user-data-lock" {
       days = 5
     }
   }
-}
+}*/
 
 resource "aws_s3_bucket_policy" "https-only" {
   bucket = aws_s3_bucket.repository_management.id
@@ -58,8 +62,8 @@ resource "aws_s3_bucket_policy" "https-only" {
         "Action": "s3:*",
         "Effect": "Deny",
         "Resource": [
-            "arn:aws:s3:::repository_management",
-            "arn:aws:s3:::repository_management/*"
+            "${aws_s3_bucket.repository_management.arn}",
+            "${aws_s3_bucket.repository_management.arn}/*"
         ],
         "Condition": {
             "Bool": {
